@@ -41,10 +41,10 @@ repositories {
 }
 
 dependencies {
-    compileOnly "dev.folia:folia-api:1.21.4-R0.1-SNAPSHOT"
+    compileOnly "dev.folia:folia-api:[26.2.build,)"
 }
 
-def targetJavaVersion = 21
+def targetJavaVersion = 25
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion

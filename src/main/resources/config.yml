@@ -4,11 +4,11 @@ DropInterval: 300
 # 每次掉落的物品数量（不会超过该物品的最大堆叠数）
 DropAmount: 1
 
-# 绑定物品到鸡身上消耗的经验等级
-BindCostLevels: 1
+# 绑定物品到鸡身上消耗的经验点数
+BindCostPoints: 5
 
-# /dupe 每次消耗「当前等级升级所需经验」的比例（0.25 = 四分之一级）
-CopyCostFraction: 0.25
+# /dupe 每次复制消耗的经验点数
+CopyCostPoints: 1
 
 # /dupe 复制整组（true）还是只复制 1 个（false）
 CopyWholeStack: true

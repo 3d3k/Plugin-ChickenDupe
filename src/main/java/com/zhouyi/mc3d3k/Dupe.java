@@ -54,8 +54,8 @@ public final class Dupe extends JavaPlugin implements Listener {
     // ==================== 配置 ====================
     private long intervalMs;
     private int dropAmount;
-    private int bindCostLevels;
-    private double copyCostFraction;
+    private int bindCostPoints;
+    private int copyCostPoints;
     private boolean copyWholeStack;
 
     // ==================== 数据 ====================
@@ -107,7 +107,7 @@ public final class Dupe extends JavaPlugin implements Listener {
                 bindings.put(b.chicken, b);
             }
         } catch (Exception e) {
-            getLogger().log(Level.SEVERE, "初始化 SQLite 失败，插件将被禁用", e);
+            getLogger().log(Level.SEVERE, "初始化 SQLite 失败（若提示找不到 org.sqlite.JDBC，说明核心未内置 sqlite-jdbc），插件将被禁用", e);
             getServer().getPluginManager().disablePlugin(this);
             return;
         }
@@ -131,8 +131,8 @@ public final class Dupe extends JavaPlugin implements Listener {
     private void loadConfigCache() {
         intervalMs = Math.max(1, getConfig().getLong("DropInterval", 300)) * 1000L;
         dropAmount = Math.max(1, getConfig().getInt("DropAmount", 1));
-        bindCostLevels = Math.max(0, getConfig().getInt("BindCostLevels", 1));
-        copyCostFraction = Math.max(0.0, getConfig().getDouble("CopyCostFraction", 0.25));
+        bindCostPoints = Math.max(0, getConfig().getInt("BindCostPoints", 5));
+        copyCostPoints = Math.max(0, getConfig().getInt("CopyCostPoints", 1));
         copyWholeStack = getConfig().getBoolean("CopyWholeStack", true);
     }
 
@@ -246,12 +246,13 @@ public final class Dupe extends JavaPlugin implements Listener {
         }
 
         // 经验检查
-        if (player.getLevel() < bindCostLevels) {
-            player.sendMessage(Component.text("经验不足！绑定需要 " + bindCostLevels + " 级经验。", NamedTextColor.RED));
+        int totalNow = totalXp(player);
+        if (totalNow < bindCostPoints) {
+            player.sendMessage(Component.text("经验不足！绑定需要 " + bindCostPoints + " 点经验。", NamedTextColor.RED));
             player.playSound(player.getLocation(), Sound.ENTITY_VILLAGER_NO, 1.0f, 1.0f);
             return;
         }
-        player.setLevel(player.getLevel() - bindCostLevels);
+        setTotalXp(player, totalNow - bindCostPoints);
 
         ItemStack one = hand.clone();
         one.setAmount(1);
@@ -263,7 +264,7 @@ public final class Dupe extends JavaPlugin implements Listener {
         db.save(b);
 
         player.playSound(loc, Sound.UI_BUTTON_CLICK, 1.0f, 1.0f);
-        player.sendMessage(Component.text("绑定成功！已消耗 " + bindCostLevels + " 级经验，每 "
+        player.sendMessage(Component.text("绑定成功！已消耗 " + bindCostPoints + " 点经验，每 "
                 + (intervalMs / 1000) + " 秒掉落一次。", NamedTextColor.GREEN));
 
         // 改名 + 立刻掉落一次（在鸡所属线程执行）
@@ -322,8 +323,7 @@ public final class Dupe extends JavaPlugin implements Listener {
                 return true;
             }
 
-            int level = player.getLevel();
-            int cost = Math.max(1, (int) Math.ceil(xpToNextLevel(level) * copyCostFraction));
+            int cost = copyCostPoints;
             int total = totalXp(player);
             if (total < cost) {
                 player.sendMessage(Component.text("经验不足！复制一次需要 " + cost + " 点经验。", NamedTextColor.RED));

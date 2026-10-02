@@ -1,7 +1,7 @@
 name: ChickenDupe
 version: '${version}'
 main: com.zhouyi.mc3d3k.Dupe
-api-version: '1.21'
+api-version: '26.1'
 folia-supported: true
 authors: [ Xzai ]
 description: 鸡刷插件 — ChickenDupe (Folia)
@@ -9,7 +9,7 @@ website: https://github.com/ZhouyiStudio/ChickenDupe
 
 commands:
   dupe:
-    description: 消耗 1/4 级经验复制手中物品
+    description: 消耗 1 点经验复制手中物品
     usage: /dupe
     permission: chickendupe.use
 
