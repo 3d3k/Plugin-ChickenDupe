@@ -1,13 +1,13 @@
 # ChickenDupe (Folia)
 
-Minecraft 鸡刷插件，支持 **Folia / Paper 1.21+**。
+Minecraft 鸡刷插件，支持 **Folia 26.x（Minecraft 26.1 / 26.2）**，面向 LightingLuminol 等 Folia 分支。
 
 ## 玩法
 
-1. 手持物品，右键成年鸡 → 消耗 **1 级经验** 绑定（经验不足会提示）。
+1. 手持物品，右键成年鸡 → 消耗 **5 点经验** 绑定（经验不足会提示）。
 2. 绑定成功后**立刻掉落 1 个**，之后每 **5 分钟**掉落 1 个，**无论鸡所在区块是否加载**。
 3. 鸡死亡后绑定自动清除。
-4. `/dupe`：手持物品，消耗 **1/4 级经验** 直接复制，每日无限次。
+4. `/dupe`：手持物品，消耗 **1 点经验** 直接复制，每日无限次。
 
 ## 配置 `config.yml`
 
@@ -15,8 +15,8 @@ Minecraft 鸡刷插件，支持 **Folia / Paper 1.21+**。
 | --- | --- | --- |
 | DropInterval | 300 | 掉落间隔（秒） |
 | DropAmount | 1 | 每次掉落数量 |
-| BindCostLevels | 1 | 绑定消耗的经验等级 |
-| CopyCostFraction | 0.25 | /dupe 消耗当前等级升级所需经验的比例 |
+| BindCostPoints | 5 | 绑定消耗的经验点数 |
+| CopyCostPoints | 1 | /dupe 每次消耗的经验点数 |
 | CopyWholeStack | true | /dupe 复制整组还是 1 个 |
 
 ## 数据
@@ -29,7 +29,7 @@ SQLite：`plugins/ChickenDupe/chickendupe.db`（表 `bindings`）。
 ./gradlew build
 ```
 
-产物：`build/libs/ChickenDupe-<version>.jar`（需要 JDK 21）。
+产物：`build/libs/ChickenDupe-<version>.jar`（需要 JDK 25；Gradle 已升级到 9.x）。
 
 ## 许可证
 
