@@ -2,15 +2,18 @@ name: ChickenDupe
 version: '${version}'
 main: com.zhouyi.mc3d3k.Dupe
 api-version: '1.21'
+folia-supported: true
 authors: [ Xzai ]
-description: 鸡刷插件 — ChickenDupe
+description: 鸡刷插件 — ChickenDupe (Folia)
 website: https://github.com/ZhouyiStudio/ChickenDupe
 
 commands:
   dupe:
-    description: ChickenDupe 主命令
-    usage: |
-      /dupe - 查看个人信息
-      /dupe exeadd <玩家名> - [控制台] 添加高级用户白名单
-      /dupe vipadd <玩家名> <每天次数> - [控制台] 添加VIP
-      /dupe vipdel <玩家名> - [控制台] 移除VIP
+    description: 消耗 1/4 级经验复制手中物品
+    usage: /dupe
+    permission: chickendupe.use
+
+permissions:
+  chickendupe.use:
+    description: 允许绑定鸡和使用 /dupe
+    default: true

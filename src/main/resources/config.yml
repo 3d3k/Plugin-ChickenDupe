@@ -1,16 +1,14 @@
-# 模式: KILL(杀鸡掉落) / EGG(定时下蛋)
-# KILL : 杀死绑定的鸡时掉落物品（默认）
-# EGG  : 鸡会定时自动掉落物品（需要设置 SpawnInterval）
-DupeMode: KILL
+# 绑定后，每隔多少秒掉落一次（无论鸡所在区块是否加载）
+DropInterval: 300
 
-# 刷物品间隔（单位：秒，仅 EGG 模式有效）
-# 太高会导致服务器卡顿
-SpawnInterval: 60
+# 每次掉落的物品数量（不会超过该物品的最大堆叠数）
+DropAmount: 1
 
-# 每次刷出的物品数量
-# 太高会导致服务器卡顿
-SpawnNumber: 1
+# 绑定物品到鸡身上消耗的经验等级
+BindCostLevels: 1
 
-# 普通玩家每天可使用的次数上限
-# -1 = 无限，0 = 不允许使用
-DailyLimit: 50
+# /dupe 每次消耗「当前等级升级所需经验」的比例（0.25 = 四分之一级）
+CopyCostFraction: 0.25
+
+# /dupe 复制整组（true）还是只复制 1 个（false）
+CopyWholeStack: true
